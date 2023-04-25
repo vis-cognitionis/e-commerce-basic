@@ -44,7 +44,7 @@ const ProductCards = () => {
                   navigate(`/detail/${product.id}`);
                 }}
                 onClickButton={() => {
-                  console.log("run");
+                  console.log(product.id);
                 }}
               />
             );

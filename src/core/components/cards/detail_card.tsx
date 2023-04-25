@@ -91,6 +91,7 @@ interface DetailCadProps {
   price: string;
   description: string;
   isLoading: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const DetailCard = ({
@@ -99,6 +100,7 @@ const DetailCard = ({
   price,
   description,
   isLoading,
+  onClick,
 }: DetailCadProps) => {
   return (
     <DetailCardContainer>
@@ -140,6 +142,7 @@ const DetailCard = ({
                   }}
                 />
               }
+              onClick={onClick}
             />
             <DescContainer>
               <Text content={description} sx={{ fontSize: 18 }} />

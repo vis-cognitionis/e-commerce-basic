@@ -30,6 +30,9 @@ const Detail = () => {
       info={selectedProduct.brand + " " + selectedProduct.model}
       image={selectedProduct.image}
       price={selectedProduct.price}
+      onClick={() => {
+        console.log(selectedProduct.id);
+      }}
     />
   );
 };
