@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, BoxProps, Skeleton, styled } from "@mui/material";
+import { Box, BoxProps, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import ProductCard from "core/components/cards/product_card";
 import useGetProducts from "service/useGetProducts";
-import { useNavigate } from "react-router-dom";
+import LazyLoadingSkeleton from "core/components/lazy-loading/lazy_loading";
 
 const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -23,10 +24,6 @@ const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   scrollBehavior: "smooth",
 }));
 
-function LazyLoadingSkeleton() {
-  return <Skeleton variant="rectangular" width={180} height={302} />;
-}
-
 const ProductCards = () => {
   const { products, isLoading } = useGetProducts();
   const navigate = useNavigate();
@@ -34,7 +31,7 @@ const ProductCards = () => {
   return (
     <ProductCardsContainer>
       {isLoading
-        ? Array(12).fill(<LazyLoadingSkeleton />)
+        ? Array(12).fill(<LazyLoadingSkeleton width={180} height={302} />)
         : products &&
           products.map((product) => {
             return (

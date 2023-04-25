@@ -3,14 +3,15 @@ import {
   Stack,
   styled,
   StackProps,
-  CircularProgress,
   Box,
   BoxProps,
+  Skeleton,
 } from "@mui/material";
 
 import Text from "../typography/typography";
 import FilledButton from "../buttons/filled_button";
 import { colors } from "core/contants/colors";
+import LazyLoadingSkeleton from "../lazy-loading/lazy_loading";
 
 const CardContainer = styled(Stack)<StackProps>(() => ({
   alignItems: "flex-start",
@@ -37,14 +38,6 @@ const ImageContainer = styled(Box)<BoxProps>(() => ({
   position: "relative",
 }));
 
-const ImageLoading = styled(CircularProgress)(() => ({
-  position: "absolute",
-  top: "50%",
-  left: "35%",
-  transform: "translate(-50%, -50%)",
-  color: colors.primary,
-}));
-
 const CardImage = ({ src }: { src: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -54,7 +47,7 @@ const CardImage = ({ src }: { src: string }) => {
 
   return (
     <ImageContainer>
-      {loading && <ImageLoading />}
+      {loading && <LazyLoadingSkeleton width={160} height={150} />}
       <Image
         src={src}
         alt=""
