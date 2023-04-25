@@ -7,6 +7,7 @@ import {
   styled,
 } from "@mui/material";
 import { IconPrice, IconUser } from "core/components/icons/icons";
+import { colors } from "core/contants/colors";
 
 const HeaderContainer = styled("header")(() => ({
   width: "100%",
@@ -18,7 +19,7 @@ const HeaderContainer = styled("header")(() => ({
   paddingLeft: "147px",
   paddingRight: "147px",
   boxSizing: "border-box",
-  background: "#2A59FE",
+  background: colors.primary,
 }));
 
 const HeaderTitle = styled(Typography)<TypographyProps>(() => ({
