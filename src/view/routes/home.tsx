@@ -1,13 +1,16 @@
 import React from "react";
+import SortBy from "view/components/sort_by";
 
 export default function Home() {
   return (
     <div
       style={{
-        border: "2px solid green",
+        paddingTop: "83px",
+        paddingRight: "147px",
+        paddingLeft: "147px",
       }}
     >
-      <p style={{ color: "red" }}>Anasayfa </p>
+      <SortBy />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./view/components/header";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 import Root from "view/routes/root";
 import Home from "view/routes/home";
 import Detail from "view/routes/detail";
