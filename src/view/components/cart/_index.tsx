@@ -20,11 +20,7 @@ const CartArea = () => {
           <FilledButton
             content="Checkout"
             children={
-              <Text
-                content="Checkout"
-                sx={{ fontSize: 13 }}
-                isButtonText={true}
-              />
+              <Text content="Checkout" sx={{ fontSize: 13 }} isButtonText />
             }
           />
         }

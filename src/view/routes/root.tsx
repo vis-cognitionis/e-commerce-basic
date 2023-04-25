@@ -8,7 +8,7 @@ export default function Root() {
   return (
     <>
       <Header />
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row">
         <Stack direction="row" pt={"83px"} pl={"147px"}>
           <Outlet />
         </Stack>
