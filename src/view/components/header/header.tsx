@@ -3,8 +3,8 @@ import { Stack, StackProps, styled } from "@mui/material";
 
 import { IconPrice, IconUser } from "core/components/icons/icons";
 import { colors } from "core/contants/colors";
-import Text from "core/components/typography/typography";
 import { useNavigate } from "react-router-dom";
+import Text from "core/components/typography/typography";
 
 const HeaderContainer = styled("header")(() => ({
   width: "100%",
@@ -46,6 +46,7 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <HeaderSearch>
@@ -58,6 +59,7 @@ const Header = () => {
             cursor: "pointer",
           }}
           variant="h5"
+          onClick={() => navigate("/")}
         />
 
         <SearchInput type="search" />
