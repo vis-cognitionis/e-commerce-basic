@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Box, styled, BoxProps, Stack, StackProps } from "@mui/material";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Box,
+  styled,
+  BoxProps,
+  Stack,
+  StackProps,
+  CircularProgress,
+} from "@mui/material";
 
 import Text from "../typography/typography";
 import FilledButton from "../buttons/filled_button";
-import useGetProducts, { ProductCardProps } from "service/useGetProducts";
+import LazyLoadingSkeleton from "../lazy-loading/lazy_loading";
 import { colors } from "core/contants/colors";
 
 const DetailCardContainer = styled(Box)<BoxProps>(() => ({
@@ -27,6 +33,12 @@ const DetailImage = styled("img")(() => ({
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+}));
+
+const DetailImageContainer = styled(Box)<BoxProps>(() => ({
+  width: "549px",
+  height: "422px",
+  position: "relative",
 }));
 
 const InfoContainer = styled(Stack)<StackProps>(() => ({
@@ -52,54 +64,88 @@ const Infos = styled(Stack)<StackProps>(() => ({
   minHeight: "99px",
 }));
 
-const DetailCard = () => {
-  const [selectedProduct, setSelectedProduct] = useState<ProductCardProps>(
-    {} as ProductCardProps
-  );
+const DetailCardImage = ({ src }: { src: string }) => {
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const { products } = useGetProducts();
-  const { id } = useParams();
-
-  const fetchProduct = async () => {
-    const fetchedProduct = products?.find((product) => product.id === id);
-    fetchedProduct && setSelectedProduct(fetchedProduct);
+  const handleLoad = () => {
+    setLoading(false);
   };
 
-  useEffect(() => {
-    fetchProduct();
-  }, [products, id]);
+  return (
+    <DetailImageContainer>
+      {loading && <LazyLoadingSkeleton width={549} height={422} />}
+      <DetailImage
+        draggable="false"
+        src={src}
+        alt=""
+        onLoad={handleLoad}
+        sx={{ display: loading ? "none" : "block" }}
+      />
+    </DetailImageContainer>
+  );
+};
 
+interface DetailCadProps {
+  image: string;
+  info: string;
+  price: string;
+  description: string;
+  isLoading: boolean;
+}
+
+const DetailCard = ({
+  image,
+  info,
+  price,
+  description,
+  isLoading,
+}: DetailCadProps) => {
   return (
     <DetailCardContainer>
-      <DetailImage src={selectedProduct.image} />
+      <DetailCardImage src={image} />
       <InfoContainer>
-        <Infos>
-          <Text
-            variant="h5"
-            content={selectedProduct.brand + " " + selectedProduct.model}
-            noWrap
+        {isLoading ? (
+          <CircularProgress
             sx={{
-              maxWidth: "100%",
+              alignSelf: "center",
+              display: "flex",
             }}
           />
-          <Text
-            content={`${selectedProduct.price + " ₺ "}`}
-            variant="h5"
-            sx={{ color: colors.primary, fontWeight: 500 }}
-          />
-        </Infos>
-        <FilledButton
-          sx={{ height: "38px" }}
-          children={
-            <Text
-              content="Add to Cart"
-              sx={{ color: colors.textLight, fontSize: 18, fontWeight: 700 }}
+        ) : (
+          <>
+            <Infos>
+              <Text
+                variant="h5"
+                content={info}
+                noWrap
+                sx={{
+                  maxWidth: "100%",
+                }}
+              />
+              <Text
+                content={`${price + " ₺ "}`}
+                variant="h5"
+                sx={{ color: colors.primary, fontWeight: 500 }}
+              />
+            </Infos>
+            <FilledButton
+              sx={{ height: "38px" }}
+              children={
+                <Text
+                  content="Add to Cart"
+                  sx={{
+                    color: colors.textLight,
+                    fontSize: 18,
+                    fontWeight: 700,
+                  }}
+                />
+              }
             />
-          }
-        />
-        <DescContainer>
-          <Text content={selectedProduct.description} sx={{ fontSize: 18 }} />
-        </DescContainer>
+            <DescContainer>
+              <Text content={description} sx={{ fontSize: 18 }} />
+            </DescContainer>
+          </>
+        )}
       </InfoContainer>
     </DetailCardContainer>
   );
