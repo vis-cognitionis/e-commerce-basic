@@ -46,7 +46,6 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
 }));
 
 const Header = () => {
-  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <HeaderSearch>
@@ -59,7 +58,6 @@ const Header = () => {
             cursor: "pointer",
           }}
           variant="h5"
-          onClick={() => navigate("/")}
         />
 
         <SearchInput type="search" />
