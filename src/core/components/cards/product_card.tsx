@@ -13,6 +13,7 @@ const CardContainer = styled(Stack)<StackProps>(() => ({
   height: "302px",
   background: colors.background,
   boxSizing: "border-box",
+  cursor: "pointer",
 }));
 
 const CardImage = styled("img")(() => ({
@@ -27,11 +28,29 @@ interface ProductCardProps {
   image: string;
   info: string;
   price: string;
+  onClickButton: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClickCard: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-const ProductCard = ({ image, info, price }: ProductCardProps) => {
+const ProductCard = ({
+  image,
+  info,
+  price,
+  onClickButton,
+  onClickCard,
+}: ProductCardProps) => {
+  const handleCardClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    onClickCard && onClickCard(event);
+  };
+
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    onClickButton && onClickButton(event);
+  };
+
   return (
-    <CardContainer>
+    <CardContainer onClick={handleCardClick}>
       <CardImage src={image} loading="lazy" />
       <Text
         content={`${price + " ₺ "}`}
@@ -46,7 +65,10 @@ const ProductCard = ({ image, info, price }: ProductCardProps) => {
           maxWidth: "100%",
         }}
       />
-      <FilledButton children={<Text content="Add to Cart" isButtonText />} />
+      <FilledButton
+        onClick={handleButtonClick}
+        children={<Text content="Add to Cart" isButtonText />}
+      />
     </CardContainer>
   );
 };

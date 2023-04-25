@@ -1,13 +1,10 @@
 import React from "react";
-import {
-  Stack,
-  StackProps,
-  Typography,
-  TypographyProps,
-  styled,
-} from "@mui/material";
+import { Stack, StackProps, styled } from "@mui/material";
+
 import { IconPrice, IconUser } from "core/components/icons/icons";
 import { colors } from "core/contants/colors";
+import Text from "core/components/typography/typography";
+import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = styled("header")(() => ({
   width: "100%",
@@ -20,16 +17,6 @@ const HeaderContainer = styled("header")(() => ({
   paddingRight: "147px",
   boxSizing: "border-box",
   background: colors.primary,
-}));
-
-const HeaderTitle = styled(Typography)<TypographyProps>(() => ({
-  fontFamily: "Montserrat",
-  fontStyle: "normal",
-  fontWeight: 800,
-  fontSize: 24,
-  display: "flex",
-  color: "#FFFFFF",
-  margin: 0,
 }));
 
 const HeaderInfoContainer = styled(Stack)<StackProps>(() => ({
@@ -51,11 +38,6 @@ const SearchInput = styled("input")(() => ({
   height: "40px",
 }));
 
-const InfoText = styled(Typography)<TypographyProps>(() => ({
-  fontFamily: "Montserrat",
-  color: "#FFFFFF",
-}));
-
 const HeaderSearch = styled(Stack)<StackProps>(() => ({
   display: "flex",
   flexDirection: "row",
@@ -64,20 +46,32 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
 }));
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <HeaderSearch>
-        <HeaderTitle>Eteration</HeaderTitle>
+        <Text
+          content="Eteration"
+          sx={{
+            color: colors.textLight,
+            lineHeight: 1.5,
+            fontWeight: 800,
+            cursor: "pointer",
+          }}
+          variant="h5"
+          onClick={() => navigate("/")}
+        />
+
         <SearchInput type="search" />
       </HeaderSearch>
       <HeaderInfoContainer>
         <HeaderInfo>
           <IconPrice />
-          <InfoText>117.000 ₺</InfoText>
+          <Text content="117.000 ₺" sx={{ color: colors.textLight }} />
         </HeaderInfo>
         <HeaderInfo>
           <IconUser sx={{ width: "14px", height: "17px" }} />
-          <InfoText>User</InfoText>
+          <Text content="User" sx={{ color: colors.textLight }} />
         </HeaderInfo>
       </HeaderInfoContainer>
     </HeaderContainer>
