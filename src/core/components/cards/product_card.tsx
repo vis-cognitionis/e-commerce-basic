@@ -15,6 +15,14 @@ const CardContainer = styled(Stack)<StackProps>(() => ({
   boxSizing: "border-box",
 }));
 
+const CardImage = styled("img")(() => ({
+  width: "160px",
+  height: "150px",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+}));
+
 interface ProductCardProps {
   image: string;
   info: string;
@@ -24,15 +32,20 @@ interface ProductCardProps {
 const ProductCard = ({ image, info, price }: ProductCardProps) => {
   return (
     <CardContainer>
-      <img
-        style={{
-          width: "160px",
-          height: "150px",
+      <CardImage src={image} loading="lazy" />
+      <Text
+        content={`${price + " ₺ "}`}
+        variant="body2"
+        sx={{ color: colors.primary }}
+      />
+      <Text
+        variant="body2"
+        content={info}
+        noWrap
+        sx={{
+          maxWidth: "100%",
         }}
-        src={image}
-      ></img>
-      <Text content={price}></Text>
-      <Text content={info}></Text>
+      />
       <FilledButton children={<Text content="Add to Cart" isButtonText />} />
     </CardContainer>
   );
