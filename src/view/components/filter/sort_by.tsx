@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormControlLabel } from "@mui/material";
 
-import CustomContainer from "core/components/containers/container";
+import ContainerCard from "core/components/cards/container_card";
 import RadioButton from "core/components/buttons/radio_button";
 import Text from "core/components/typography/typography";
 
@@ -16,7 +16,7 @@ const SortBy = () => {
   const [selectedItem, setSelectedItem] = useState<string>(items[0].name);
 
   return (
-    <CustomContainer
+    <ContainerCard
       sx={{ marginTop: "14px" }}
       title="Sort By"
       children={items.map((item) => {

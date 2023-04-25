@@ -1,8 +1,8 @@
 import React from "react";
 
-import CustomContainer from "core/components/containers/container";
+import ContainerCard from "core/components/cards/container_card";
 
 const Brands = () => {
-  return <CustomContainer title="Brands" children={<p>deneme</p>} />;
+  return <ContainerCard title="Brands" children={<p>deneme</p>} />;
 };
 export default Brands;

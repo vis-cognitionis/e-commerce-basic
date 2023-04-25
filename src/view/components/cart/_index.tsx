@@ -1,19 +1,19 @@
 import React from "react";
 import { Stack } from "@mui/material";
 
-import CustomContainer from "core/components/containers/container";
+import ContainerCard from "core/components/cards/container_card";
 import FilledButton from "core/components/buttons/filled_button";
 import Text from "core/components/typography/typography";
 
 const CartArea = () => {
   return (
     <Stack gap={4} pr={"147px"} pt={"83px"}>
-      <CustomContainer
+      <ContainerCard
         sx={{ width: "213px", height: "auto" }}
         isFilter={false}
         children={<p>cart area</p>}
       />
-      <CustomContainer
+      <ContainerCard
         sx={{ width: "213px", height: "auto" }}
         isFilter={false}
         children={

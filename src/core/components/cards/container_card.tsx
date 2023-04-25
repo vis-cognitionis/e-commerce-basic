@@ -1,13 +1,15 @@
 import React from "react";
 import { Stack, StackProps, SxProps, styled } from "@mui/material";
+
 import Text from "core/components/typography/typography";
+import { colors } from "core/contants/colors";
 
 const Container = styled(Stack)<StackProps>(() => ({
   padding: "15px",
   gap: "15px",
   width: "220px",
   height: "158px",
-  background: "#FFFFFF",
+  background: colors.background,
   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   alignItems: "flex-start",
   boxSizing: "border-box",
@@ -21,7 +23,7 @@ interface ContainerProps {
   isFilter?: boolean;
 }
 
-const CustomContainer = ({
+const ContainerCard = ({
   children,
   title,
   sx,
@@ -42,4 +44,4 @@ const CustomContainer = ({
   );
 };
 
-export default CustomContainer;
+export default ContainerCard;
