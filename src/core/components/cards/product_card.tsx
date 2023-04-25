@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  styled,
-  StackProps,
-  Box,
-  BoxProps,
-  Skeleton,
-} from "@mui/material";
+import { Stack, styled, StackProps, Box, BoxProps } from "@mui/material";
 
 import Text from "../typography/typography";
 import FilledButton from "../buttons/filled_button";
-import { colors } from "core/contants/colors";
 import LazyLoadingSkeleton from "../lazy-loading/lazy_loading";
+import { colors } from "core/contants/colors";
 
 const CardContainer = styled(Stack)<StackProps>(() => ({
   alignItems: "flex-start",

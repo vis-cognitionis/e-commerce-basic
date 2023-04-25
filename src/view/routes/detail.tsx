@@ -1,13 +1,7 @@
 import React from "react";
+import DetailCard from "core/components/cards/detail_card";
+
 const Detail = () => {
-  return (
-    <div
-      style={{
-        border: "2px solid red",
-      }}
-    >
-      <p style={{ color: "red" }}>detail page </p>
-    </div>
-  );
+  return <DetailCard />;
 };
 export default Detail;
