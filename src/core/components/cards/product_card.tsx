@@ -1,5 +1,12 @@
-import React from "react";
-import { Stack, styled, StackProps } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Stack,
+  styled,
+  StackProps,
+  CircularProgress,
+  Box,
+  BoxProps,
+} from "@mui/material";
 
 import Text from "../typography/typography";
 import FilledButton from "../buttons/filled_button";
@@ -16,13 +23,47 @@ const CardContainer = styled(Stack)<StackProps>(() => ({
   cursor: "pointer",
 }));
 
-const CardImage = styled("img")(() => ({
+const Image = styled("img")(() => ({
   width: "160px",
   height: "150px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
 }));
+
+const ImageContainer = styled(Box)<BoxProps>(() => ({
+  width: "160px",
+  height: "150px",
+  position: "relative",
+}));
+
+const ImageLoading = styled(CircularProgress)(() => ({
+  position: "absolute",
+  top: "50%",
+  left: "35%",
+  transform: "translate(-50%, -50%)",
+  color: colors.primary,
+}));
+
+const CardImage = ({ src }: { src: string }) => {
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
+  return (
+    <ImageContainer>
+      {loading && <ImageLoading />}
+      <Image
+        src={src}
+        alt=""
+        onLoad={handleLoad}
+        sx={{ display: loading ? "none" : "block" }}
+      />
+    </ImageContainer>
+  );
+};
 
 interface ProductCardProps {
   image: string;
@@ -51,7 +92,7 @@ const ProductCard = ({
 
   return (
     <CardContainer onClick={handleCardClick}>
-      <CardImage src={image} loading="lazy" />
+      <CardImage src={image} />
       <Text
         content={`${price + " ₺ "}`}
         variant="body2"
