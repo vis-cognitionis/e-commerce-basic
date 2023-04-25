@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface ProductProps {
+interface ProductCardProps {
   brand: string;
   createdAt: string;
   description: string;
@@ -13,7 +13,7 @@ interface ProductProps {
 }
 
 const useGetProducts = () => {
-  const { data, isLoading, isError, error } = useQuery<ProductProps[]>(
+  const { data, isLoading, isError, error } = useQuery<ProductCardProps[]>(
     ["products"],
     async () => {
       const { data } = await axios.get(

@@ -4,6 +4,7 @@ import { Stack } from "@mui/material";
 import ContainerCard from "core/components/cards/container_card";
 import FilledButton from "core/components/buttons/filled_button";
 import Text from "core/components/typography/typography";
+import { colors } from "core/contants/colors";
 
 const CartArea = () => {
   return (
@@ -20,7 +21,10 @@ const CartArea = () => {
           <FilledButton
             content="Checkout"
             children={
-              <Text content="Checkout" sx={{ fontSize: 13 }} isButtonText />
+              <Text
+                content="Checkout"
+                sx={{ fontSize: 13, color: colors.textLight }}
+              />
             }
           />
         }

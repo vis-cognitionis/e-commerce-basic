@@ -67,7 +67,14 @@ const ProductCard = ({
       />
       <FilledButton
         onClick={handleButtonClick}
-        children={<Text content="Add to Cart" isButtonText />}
+        children={
+          <Text
+            content="Add to Cart"
+            sx={{
+              color: colors.textLight,
+            }}
+          />
+        }
       />
     </CardContainer>
   );
