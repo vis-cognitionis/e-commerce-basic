@@ -1,6 +1,6 @@
 import { fireEvent, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Header from "./header";
+import Header from "../header";
 
 test("Header component renders correctly", () => {
   const { getByText } = render(

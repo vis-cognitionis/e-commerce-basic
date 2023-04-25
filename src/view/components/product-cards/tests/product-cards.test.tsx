@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-import ProductCards from "./product_cards";
+import ProductCards from "../product_cards";
 
 jest.mock("service/useGetProducts", () => {
   return () => ({
