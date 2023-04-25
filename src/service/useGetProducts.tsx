@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface ProductCardProps {
+export interface ProductCardProps {
   brand: string;
   createdAt: string;
   description: string;

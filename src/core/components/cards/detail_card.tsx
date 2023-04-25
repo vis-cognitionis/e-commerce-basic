@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, styled, BoxProps, Stack, StackProps } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-import { colors } from "core/contants/colors";
 import Text from "../typography/typography";
 import FilledButton from "../buttons/filled_button";
+import useGetProducts, { ProductCardProps } from "service/useGetProducts";
+import { colors } from "core/contants/colors";
 
 const DetailCardContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -51,21 +53,37 @@ const Infos = styled(Stack)<StackProps>(() => ({
 }));
 
 const DetailCard = () => {
+  const [selectedProduct, setSelectedProduct] = useState<ProductCardProps>(
+    {} as ProductCardProps
+  );
+
+  const { products } = useGetProducts();
+  const { id } = useParams();
+
+  const fetchProduct = async () => {
+    const fetchedProduct = products?.find((product) => product.id === id);
+    fetchedProduct && setSelectedProduct(fetchedProduct);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [products, id]);
+
   return (
     <DetailCardContainer>
-      <DetailImage src="" />
+      <DetailImage src={selectedProduct.image} />
       <InfoContainer>
         <Infos>
           <Text
             variant="h5"
-            content={"info"}
+            content={selectedProduct.brand + " " + selectedProduct.model}
             noWrap
             sx={{
               maxWidth: "100%",
             }}
           />
           <Text
-            content={`${"price" + " ₺ "}`}
+            content={`${selectedProduct.price + " ₺ "}`}
             variant="h5"
             sx={{ color: colors.primary, fontWeight: 500 }}
           />
@@ -80,10 +98,7 @@ const DetailCard = () => {
           }
         />
         <DescContainer>
-          <Text
-            content="Lorem ipsum dolor sit amet, conc consectetur et, luctus sit amet erat. Pellentesque habitesuada fames ac turpis egestas. Nulla facilisi. Suspendisse egestas maximus eleifend. Donec lectus ex, commodo id tristique eu, convallis nec est. Vestibulum ante ipsue cubilia curae; Aenean in consectetur dolor. In porttitor risus vel nisl fringilla egestas. Praesent id enim dolor."
-            sx={{ fontSize: 18 }}
-          />
+          <Text content={selectedProduct.description} sx={{ fontSize: 18 }} />
         </DescContainer>
       </InfoContainer>
     </DetailCardContainer>
