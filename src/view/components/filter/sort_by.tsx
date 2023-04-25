@@ -16,8 +16,10 @@ const SortBy = () => {
   const [selectedItem, setSelectedItem] = useState<string>(items[0].name);
 
   return (
-    <CustomContainer sx={{ marginTop: "14px" }} content="Sort By">
-      {items.map((item) => {
+    <CustomContainer
+      sx={{ marginTop: "14px" }}
+      title="Sort By"
+      children={items.map((item) => {
         return (
           <FormControlLabel
             key={item.name}
@@ -40,7 +42,7 @@ const SortBy = () => {
           />
         );
       })}
-    </CustomContainer>
+    />
   );
 };
 export default SortBy;

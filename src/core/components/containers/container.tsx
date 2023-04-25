@@ -14,23 +14,29 @@ const Container = styled(Stack)<StackProps>(() => ({
   position: "relative",
 }));
 
+interface ContainerProps {
+  children: React.ReactNode;
+  title?: string;
+  sx?: SxProps;
+  isFilter?: boolean;
+}
+
 const CustomContainer = ({
   children,
-  content,
+  title,
   sx,
-}: {
-  children: React.ReactNode;
-  content: string;
-  sx?: SxProps;
-}) => {
+  isFilter = true,
+}: ContainerProps) => {
   return (
     <Container sx={sx}>
-      <Text
-        sx={{ position: "absolute", top: -25, left: 0 }}
-        variant="caption"
-        content={content}
-        color="rgba(51, 51, 51, 0.7)"
-      />
+      {isFilter && (
+        <Text
+          sx={{ position: "absolute", top: -25, left: 0 }}
+          variant="caption"
+          content={title as string}
+          color="rgba(51, 51, 51, 0.7)"
+        />
+      )}
       {children}
     </Container>
   );

@@ -1,16 +1,20 @@
 import React from "react";
-import SortBy from "view/components/sort_by";
+import { Stack } from "@mui/material";
+
+import CartArea from "view/components/cart/_index";
+import AllFilter from "view/components/filter/_index";
 
 export default function Home() {
   return (
-    <div
-      style={{
-        paddingTop: "83px",
-        paddingRight: "147px",
-        paddingLeft: "147px",
-      }}
+    <Stack
+      direction="row"
+      pt={"83px"}
+      pr={"147px"}
+      pl={"147px"}
+      justifyContent="space-between"
     >
-      <SortBy />
-    </div>
+      <AllFilter />
+      <CartArea />
+    </Stack>
   );
 }
