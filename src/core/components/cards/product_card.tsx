@@ -42,6 +42,7 @@ const CardImage = ({ src }: { src: string }) => {
     <ImageContainer>
       {loading && <LazyLoadingSkeleton width={160} height={150} />}
       <Image
+        draggable="false"
         src={src}
         alt=""
         onLoad={handleLoad}
