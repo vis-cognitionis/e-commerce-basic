@@ -52,7 +52,6 @@ const Cart = () => {
       children={
         <CartContainer spacing={1.8} pb={1.5}>
           {cart.map((item) => {
-            console.log(item.quantity);
             return (
               <Stack
                 key={item.id}

@@ -31,7 +31,6 @@ const SortBy = () => {
                 onClick={() => {
                   mainStore.setSelectedItem(item.label);
                 }}
-                defaultChecked
               />
             }
             label={

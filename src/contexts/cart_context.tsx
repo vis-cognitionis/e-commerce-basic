@@ -20,12 +20,10 @@ export const useCart = () => useContext(CartContext);
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<ProductCardProps[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const data = localStorage.getItem("cart");
 
   useEffect(() => {
-    const data = localStorage.getItem("cart");
-    if (data) {
-      setCart(JSON.parse(data));
-    }
+    data && setCart(JSON.parse(data));
   }, []);
 
   useEffect(() => {
