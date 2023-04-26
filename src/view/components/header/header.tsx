@@ -1,9 +1,19 @@
 import React from "react";
-import { Stack, StackProps, styled } from "@mui/material";
-
-import { IconPrice, IconUser } from "core/components/icons/icons";
-import { colors } from "core/contants/colors";
+import {
+  Box,
+  BoxProps,
+  InputBase,
+  InputBaseProps,
+  Stack,
+  StackProps,
+  styled,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react";
+
+import { IconPrice, IconSearch, IconUser } from "core/components/icons/icons";
+import { colors } from "core/contants/colors";
+import mainStore from "view-model/main_store";
 import Text from "core/components/typography/typography";
 
 const HeaderContainer = styled("header")(() => ({
@@ -33,9 +43,23 @@ const HeaderInfo = styled(Stack)<StackProps>(() => ({
   alignItems: "center",
 }));
 
-const SearchInput = styled("input")(() => ({
+export const SearchBox = styled(Box)<BoxProps>(() => ({
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: colors.lightGray,
+  padding: "8px 8px 8px 12px",
+  gap: "10px",
   width: "408px",
   height: "40px",
+  boxSizing: "border-box",
+}));
+
+export const SearchInput = styled(InputBase)<InputBaseProps>(() => ({
+  width: "100%",
+  height: "100%",
+  fontSize: "14px",
+  color: colors.textDark,
+  fontFamily: "Montserrat",
 }));
 
 const HeaderSearch = styled(Stack)<StackProps>(() => ({
@@ -47,6 +71,11 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const handleSearchName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    mainStore.setSearchName(event.target.value);
+  };
+
   return (
     <HeaderContainer>
       <HeaderSearch>
@@ -61,8 +90,14 @@ const Header = () => {
           variant="h5"
           onClick={() => navigate("/")}
         />
-
-        <SearchInput type="search" />
+        <SearchBox>
+          <IconSearch sx={{ width: "16px", height: "auto" }} />
+          <SearchInput
+            placeholder="Search"
+            value={mainStore.searchName}
+            onChange={handleSearchName}
+          />
+        </SearchBox>
       </HeaderSearch>
       <HeaderInfoContainer>
         <HeaderInfo>
@@ -78,4 +113,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default observer(Header);

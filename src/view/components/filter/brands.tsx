@@ -15,7 +15,9 @@ const Brands = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { products } = useGetProducts();
+
   const [searchBrand, setSearchBrand] = useState<string>("");
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchBrand(event.target.value);
   };

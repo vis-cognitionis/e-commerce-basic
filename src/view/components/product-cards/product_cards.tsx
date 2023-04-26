@@ -16,6 +16,7 @@ import useGetProducts from "service/useGetProducts";
 import LazyLoadingSkeleton from "core/components/lazy-loading/lazy_loading";
 import mainStore from "view-model/main_store";
 import { colors } from "core/contants/colors";
+import Text from "core/components/typography/typography";
 
 const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -92,11 +93,13 @@ const ProductCards = () => {
 
   let filteredProducts = products?.filter((product) => {
     const filters = mainStore.selectedFilters;
+    const searchName = mainStore.searchName.toLowerCase();
     return (
-      filters.length === 0 ||
-      filters.some(
-        (filter) => product.brand === filter || product.model === filter
-      )
+      (filters.length === 0 ||
+        filters.some(
+          (filter) => product.brand === filter || product.model === filter
+        )) &&
+      (searchName === "" || product.name.toLowerCase().includes(searchName))
     );
   });
 
@@ -130,13 +133,22 @@ const ProductCards = () => {
   const pageCount = Math.ceil(
     ((filteredProducts && filteredProducts.length) || 0) / itemsPerPage
   );
+
   useEffect(() => {
     if (page <= pageCount) {
       setCurrentPage(page);
     }
   }, [location.search, pageCount]);
 
-  return (
+  const isProductNotFound = paginatedProducts && paginatedProducts.length === 0;
+
+  return isProductNotFound ? (
+    <Text
+      variant="body1"
+      sx={{ textAlign: "center", mt: 2, color: colors.warning }}
+      content="No result!"
+    />
+  ) : (
     <Box position="relative">
       <ScrollContainer>
         <ProductCardsContainer>
@@ -149,7 +161,9 @@ const ProductCards = () => {
                 return (
                   <ProductCard
                     key={product.id}
-                    info={product.brand + " " + product.model}
+                    info={
+                      product.name + " " + product.brand + " " + product.model
+                    }
                     price={product.price}
                     image={product.image}
                     onClickCard={() => {

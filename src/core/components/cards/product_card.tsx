@@ -88,9 +88,10 @@ const ProductCard = ({
       <Text
         variant="body2"
         content={info}
-        noWrap
         sx={{
-          maxWidth: "100%",
+          lineHeight: 1.2,
+          height: 33.59,
+          overflow: "hidden",
         }}
       />
       <FilledButton

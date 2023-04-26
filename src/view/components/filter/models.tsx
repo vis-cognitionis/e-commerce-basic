@@ -15,6 +15,7 @@ const Models = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { products } = useGetProducts();
+
   const [searchModel, setSearchModel] = useState<string>("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
