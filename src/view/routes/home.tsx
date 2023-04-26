@@ -2,13 +2,13 @@ import React from "react";
 import { Stack } from "@mui/material";
 
 import AllFilter from "view/components/filter/_index";
-import ProductCards from "view/components/product-cards/product_cards";
+import ProductCardList from "view/components/product-card-list/product_card_list";
 
 const Home = () => {
   return (
     <Stack direction="row" gap={3.5}>
       <AllFilter />
-      <ProductCards />
+      <ProductCardList />
     </Stack>
   );
 };

@@ -84,7 +84,7 @@ export const usePaginatedProducts = () => {
     if (page <= pageCount) {
       setCurrentPage(page);
     }
-  }, [location.search, pageCount]);
+  }, [location.search, pageCount, page]);
 
   const isProductNotFound =
     paginatedProductList && paginatedProductList.length === 0;

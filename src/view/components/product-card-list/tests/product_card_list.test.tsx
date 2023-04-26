@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-import ProductCards from "../product_cards";
+import ProductCardList from "../product_card_list";
 
 jest.mock("service/useGetProducts", () => {
   return () => ({
@@ -33,10 +33,10 @@ jest.mock("service/useGetProducts", () => {
   });
 });
 
-test("ProductCards component renders correctly", () => {
+test("ProductCardList component renders correctly", () => {
   const { getByText } = render(
     <MemoryRouter>
-      <ProductCards />
+      <ProductCardList />
     </MemoryRouter>
   );
   expect(getByText("Brand 1 Model 1")).toBeInTheDocument();

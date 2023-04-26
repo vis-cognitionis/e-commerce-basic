@@ -67,7 +67,7 @@ const CustomPagination = styled(Pagination)<PaginationProps>(() => ({
   },
 }));
 
-const ProductCards = () => {
+const ProductCardList = () => {
   const {
     paginatedProductList,
     pageCount,
@@ -91,9 +91,9 @@ const ProductCards = () => {
       <ScrollContainer>
         <ProductCardsContainer>
           {isLoading
-            ? Array(itemsPerPage).fill(
-                <LazyLoadingSkeleton width={180} height={302} />
-              )
+            ? Array.from({ length: itemsPerPage }, (_, index) => (
+                <LazyLoadingSkeleton key={index} width={180} height={302} />
+              ))
             : paginatedProductList &&
               paginatedProductList.map((product) => {
                 return (
@@ -131,4 +131,4 @@ const ProductCards = () => {
   );
 };
 
-export default observer(ProductCards);
+export default observer(ProductCardList);

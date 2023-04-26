@@ -12,22 +12,28 @@ const Detail = () => {
   const { products, isLoading } = useGetProducts();
   const { id } = useParams();
 
-  const fetchProduct = async () => {
-    const fetchedProduct =
-      products && products.find((product) => product.id === id);
-    fetchedProduct && setSelectedProduct(fetchedProduct);
-  };
-
   useEffect(() => {
+    const fetchProduct = async () => {
+      const fetchedProduct =
+        products && products.find((product) => product.id === id);
+      fetchedProduct && setSelectedProduct(fetchedProduct);
+    };
+
     fetchProduct();
-  }, [products, id]);
+  }, [products, id, setSelectedProduct]);
 
   return (
     <DetailCard
       key={id}
       isLoading={isLoading}
       description={selectedProduct.description}
-      info={selectedProduct.brand + " " + selectedProduct.model}
+      info={
+        selectedProduct.name +
+        " " +
+        selectedProduct.brand +
+        " " +
+        selectedProduct.model
+      }
       image={selectedProduct.image}
       price={selectedProduct.price}
       onClick={() => {
