@@ -7,6 +7,8 @@ import ProductCard from "core/components/cards/product_card";
 import useGetProducts from "service/useGetProducts";
 import LazyLoadingSkeleton from "core/components/lazy-loading/lazy_loading";
 import { colors } from "core/contants/colors";
+import mainStore from "view-model/main_store";
+import { observer } from "mobx-react";
 
 const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -89,7 +91,34 @@ const ProductCards = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const paginatedProducts = products && products.slice(startIndex, endIndex);
+  let filteredProducts = products;
+
+  switch (mainStore.selectedItem) {
+    case "price-low-to-high":
+      filteredProducts = filteredProducts?.sort(
+        (a, b) => Number(a.price) - Number(b.price)
+      );
+      break;
+    case "price-high-to-low":
+      filteredProducts = filteredProducts?.sort(
+        (a, b) => Number(b.price) - Number(a.price)
+      );
+      break;
+    case "new-to-old":
+      filteredProducts = filteredProducts?.sort((a, b) =>
+        a.createdAt < b.createdAt ? 1 : -1
+      );
+      break;
+    case "old-to-new":
+      filteredProducts = filteredProducts?.sort((a, b) =>
+        a.createdAt > b.createdAt ? 1 : -1
+      );
+      break;
+    default:
+      break;
+  }
+
+  const paginatedProducts = filteredProducts?.slice(startIndex, endIndex);
 
   return (
     <Box position="relative">
@@ -109,6 +138,7 @@ const ProductCards = () => {
                     image={product.image}
                     onClickCard={() => {
                       navigate(`/detail/${product.id}`);
+                      console.log(product.createdAt);
                     }}
                     onClickButton={() => {
                       console.log(product.id);
@@ -132,4 +162,4 @@ const ProductCards = () => {
   );
 };
 
-export default ProductCards;
+export default observer(ProductCards);
