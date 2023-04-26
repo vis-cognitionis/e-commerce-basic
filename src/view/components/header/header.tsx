@@ -13,6 +13,7 @@ import { observer } from "mobx-react";
 
 import { IconPrice, IconSearch, IconUser } from "core/components/icons/icons";
 import { colors } from "core/contants/colors";
+import { useCart } from "contexts/cart_context";
 import mainStore from "view-model/main_store";
 import Text from "core/components/typography/typography";
 
@@ -71,6 +72,7 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
 
 const Header = () => {
   const navigate = useNavigate();
+  const { totalPrice } = useCart();
 
   const handleSearchName = (event: React.ChangeEvent<HTMLInputElement>) => {
     mainStore.setSearchName(event.target.value);
@@ -102,7 +104,10 @@ const Header = () => {
       <HeaderInfoContainer>
         <HeaderInfo>
           <IconPrice />
-          <Text content="117.000 ₺" sx={{ color: colors.textLight }} />
+          <Text
+            content={`${totalPrice.toLocaleString() + " ₺"}`}
+            sx={{ color: colors.textLight }}
+          />
         </HeaderInfo>
         <HeaderInfo>
           <IconUser sx={{ width: "14px", height: "17px" }} />

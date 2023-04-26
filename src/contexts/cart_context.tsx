@@ -5,18 +5,21 @@ interface CartContextProps {
   cart: ProductCardProps[];
   addToCart: (product: ProductCardProps) => void;
   removeFromCart: (productId: number) => void;
+  totalPrice: number;
 }
 
 export const CartContext = createContext<CartContextProps>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  totalPrice: 0,
 });
 
 export const useCart = () => useContext(CartContext);
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<ProductCardProps[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     const data = localStorage.getItem("cart");
@@ -26,6 +29,11 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    let total = 0;
+    cart.forEach((product) => {
+      total += Number(product.price) * product.quantity;
+    });
+    setTotalPrice(total);
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
@@ -71,7 +79,9 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, totalPrice }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -5,9 +5,12 @@ import FilledButton from "core/components/buttons/filled_button";
 import ContainerCard from "core/components/cards/container_card";
 import Text from "core/components/typography/typography";
 import { colors } from "core/contants/colors";
+import { useCart } from "contexts/cart_context";
 
 const Checkout = () => {
-  return (
+  const { cart, totalPrice } = useCart();
+
+  return cart.length > 0 ? (
     <ContainerCard
       sx={{
         width: "213px",
@@ -18,9 +21,9 @@ const Checkout = () => {
       children={
         <Stack spacing={1.4}>
           <Stack direction="row" spacing={0.5} alignItems={"center"}>
-            <Text content="Total price:" variant="body2" />
+            <Text content="Total Price:" variant="body2" />
             <Text
-              content="117.000 ₺"
+              content={`${totalPrice.toLocaleString() + " ₺"}`}
               variant="body2"
               sx={{ color: colors.primary, fontWeight: 700 }}
             />
@@ -39,6 +42,6 @@ const Checkout = () => {
         </Stack>
       }
     />
-  );
+  ) : null;
 };
 export default Checkout;
