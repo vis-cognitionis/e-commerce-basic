@@ -6,38 +6,38 @@ import useGetProducts from "service/useGetProducts";
 import CheckboxButton from "core/components/buttons/checkbox_button";
 import Text from "core/components/typography/typography";
 import { IconSearch } from "core/components/icons/icons";
-import { SearchBox, SearchInput, SearchContainer } from "./common/common";
+import { SearchBox, SearchContainer, SearchInput } from "./common/common";
 
-const Brands = () => {
+const Models = () => {
   const { products } = useGetProducts();
-  const [searchBrand, setSearchBrand] = useState<string>("");
+  const [searchModel, setSearchModel] = useState<string>("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchBrand(event.target.value);
+    setSearchModel(event.target.value);
   };
 
-  const searchedBrands = products
+  const searchedModels = products
     ? products.filter((item) =>
-        item.brand.toLowerCase().includes(searchBrand.toLowerCase())
+        item.brand.toLowerCase().includes(searchModel.toLowerCase())
       )
     : [];
 
   return (
     <ContainerCard
-      title="Brands"
+      title="Models"
       children={
         <Stack spacing={1}>
           <SearchBox>
             <IconSearch sx={{ width: "16px", height: "auto" }} />
             <SearchInput
               placeholder="Search"
-              value={searchBrand}
+              value={searchModel}
               onChange={handleSearchChange}
             />
           </SearchBox>
           <SearchContainer>
-            {searchedBrands.length > 0 ? (
-              searchedBrands.map((item) => {
+            {searchedModels.length > 0 ? (
+              searchedModels.map((item) => {
                 return (
                   <FormControlLabel
                     key={item.id}
@@ -47,14 +47,14 @@ const Brands = () => {
                       <Text
                         sx={{ paddingLeft: "8px" }}
                         variant="body2"
-                        content={item.brand}
+                        content={item.model}
                       />
                     }
                   />
                 );
               })
             ) : (
-              <Text variant="body2" content="No brands found" />
+              <Text variant="body2" content="No models found" />
             )}
           </SearchContainer>
         </Stack>
@@ -62,4 +62,4 @@ const Brands = () => {
     />
   );
 };
-export default Brands;
+export default Models;

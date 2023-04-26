@@ -3,14 +3,14 @@ import { Stack } from "@mui/material";
 
 import SortBy from "./sort_by";
 import Brands from "./brands";
-import Model from "./model";
+import Models from "./models";
 
 const AllFilter = () => {
   return (
     <Stack gap={5.5}>
       <SortBy />
       <Brands />
-      <Model />
+      <Models />
     </Stack>
   );
 };
