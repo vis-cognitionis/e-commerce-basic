@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, BoxProps, Stack, styled, StackProps } from "@mui/material";
 import Pagination, { PaginationProps } from "@mui/material/Pagination";
 
@@ -60,15 +60,30 @@ const CustomPagination = styled(Pagination)<PaginationProps>(() => ({
 const ProductCards = () => {
   const { products, isLoading } = useGetProducts();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const itemsPerPage = 12;
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageCount = Math.ceil(
+    ((products && products.length) || 0) / itemsPerPage
+  );
+  const page = parseInt(
+    new URLSearchParams(location.search).get("page") || "1"
+  );
+
+  const [currentPage, setCurrentPage] = useState<number>(page);
+
+  useEffect(() => {
+    if (page <= pageCount) {
+      setCurrentPage(page);
+    }
+  }, [location.search, pageCount]);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
     setCurrentPage(page);
+    navigate(`/?page=${page}`);
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -105,9 +120,7 @@ const ProductCards = () => {
         {!isLoading && (
           <PaginationContainer>
             <CustomPagination
-              count={Math.ceil(
-                ((products && products.length) || 0) / itemsPerPage
-              )}
+              count={pageCount}
               page={currentPage}
               onChange={handleChangePage}
               shape="rounded"
