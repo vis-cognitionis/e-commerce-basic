@@ -6,12 +6,14 @@ import Root from "view/routes/root";
 import Home from "view/routes/home";
 import Detail from "view/routes/detail";
 import CartProvider from "contexts/cart_context";
+import NotFound from "view/routes/not_found";
 import { queryClient } from "service/query_client";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
