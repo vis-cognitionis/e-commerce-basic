@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { FormControlLabel, Stack } from "@mui/material";
+import { observer } from "mobx-react";
 
 import ContainerCard from "core/components/cards/container_card";
-import useGetProducts from "service/useGetProducts";
+import useGetProducts, { ProductCardProps } from "service/useGetProducts";
 import CheckboxButton from "core/components/buttons/checkbox_button";
 import Text from "core/components/typography/typography";
+import mainStore from "view-model/main_store";
 import { IconSearch } from "core/components/icons/icons";
 import { SearchBox, SearchInput, SearchContainer } from "./common/common";
 
 const Brands = () => {
   const { products } = useGetProducts();
   const [searchBrand, setSearchBrand] = useState<string>("");
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchBrand(event.target.value);
   };
@@ -21,6 +22,19 @@ const Brands = () => {
         item.brand.toLowerCase().includes(searchBrand.toLowerCase())
       )
     : [];
+
+  const handleBrandClick = (brand: string) => {
+    if (mainStore.selectedBrands.includes(brand)) {
+      mainStore.setSelectedBrands(
+        mainStore.selectedBrands.filter((item) => item !== brand)
+      );
+    } else {
+      mainStore.setSelectedBrands([...mainStore.selectedBrands, brand]);
+    }
+  };
+
+  // required to show the same brand names as unique in the user interface
+  const uniqueBrands = [...new Set(searchedBrands.map((item) => item.brand))];
 
   return (
     <ContainerCard
@@ -36,18 +50,24 @@ const Brands = () => {
             />
           </SearchBox>
           <SearchContainer>
-            {searchedBrands.length > 0 ? (
-              searchedBrands.map((item) => {
+            {uniqueBrands.length > 0 ? (
+              uniqueBrands.map((brand, imdex) => {
                 return (
                   <FormControlLabel
-                    key={item.id}
+                    key={imdex}
                     sx={{ marginLeft: 0 }}
-                    control={<CheckboxButton key={item.id} />}
+                    control={
+                      <CheckboxButton
+                        key={imdex}
+                        checked={mainStore.selectedBrands.includes(brand)}
+                        onClick={() => handleBrandClick(brand)}
+                      />
+                    }
                     label={
                       <Text
                         sx={{ paddingLeft: "8px" }}
                         variant="body2"
-                        content={item.brand}
+                        content={brand}
                       />
                     }
                   />
@@ -62,4 +82,4 @@ const Brands = () => {
     />
   );
 };
-export default Brands;
+export default observer(Brands);

@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, BoxProps, Stack, styled, StackProps } from "@mui/material";
-import Pagination, { PaginationProps } from "@mui/material/Pagination";
+import {
+  Box,
+  BoxProps,
+  Stack,
+  styled,
+  StackProps,
+  Pagination,
+  PaginationProps,
+} from "@mui/material";
+import { observer } from "mobx-react";
 
 import ProductCard from "core/components/cards/product_card";
 import useGetProducts from "service/useGetProducts";
 import LazyLoadingSkeleton from "core/components/lazy-loading/lazy_loading";
-import { colors } from "core/contants/colors";
 import mainStore from "view-model/main_store";
-import { observer } from "mobx-react";
+import { colors } from "core/contants/colors";
 
 const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -65,20 +72,12 @@ const ProductCards = () => {
   const location = useLocation();
 
   const itemsPerPage = 12;
-  const pageCount = Math.ceil(
-    ((products && products.length) || 0) / itemsPerPage
-  );
+
   const page = parseInt(
     new URLSearchParams(location.search).get("page") || "1"
   );
 
   const [currentPage, setCurrentPage] = useState<number>(page);
-
-  useEffect(() => {
-    if (page <= pageCount) {
-      setCurrentPage(page);
-    }
-  }, [location.search, pageCount]);
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
@@ -119,6 +118,15 @@ const ProductCards = () => {
   }
 
   const paginatedProducts = filteredProducts?.slice(startIndex, endIndex);
+
+  const pageCount = Math.ceil(
+    ((filteredProducts && filteredProducts.length) || 0) / itemsPerPage
+  );
+  useEffect(() => {
+    if (page <= pageCount) {
+      setCurrentPage(page);
+    }
+  }, [location.search, pageCount]);
 
   return (
     <Box position="relative">

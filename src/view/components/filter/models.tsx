@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { FormControlLabel, Stack } from "@mui/material";
+import { observer } from "mobx-react";
 
 import ContainerCard from "core/components/cards/container_card";
 import useGetProducts from "service/useGetProducts";
 import CheckboxButton from "core/components/buttons/checkbox_button";
+import mainStore from "view-model/main_store";
 import Text from "core/components/typography/typography";
-import { IconSearch } from "core/components/icons/icons";
 import { SearchBox, SearchContainer, SearchInput } from "./common/common";
+import { IconSearch } from "core/components/icons/icons";
 
 const Models = () => {
   const { products } = useGetProducts();
@@ -22,6 +24,19 @@ const Models = () => {
       )
     : [];
 
+  // required to show the same model names as unique in the user interface
+  const uniqueModels = [...new Set(searchedModels.map((item) => item.model))];
+
+  const handleModelClick = (model: string) => {
+    if (mainStore.selectedModels.includes(model)) {
+      mainStore.setSelectedModels(
+        mainStore.selectedModels.filter((item) => item !== model)
+      );
+    } else {
+      mainStore.setSelectedModels([...mainStore.selectedModels, model]);
+    }
+  };
+
   return (
     <ContainerCard
       title="Model"
@@ -36,18 +51,24 @@ const Models = () => {
             />
           </SearchBox>
           <SearchContainer>
-            {searchedModels.length > 0 ? (
-              searchedModels.map((item) => {
+            {uniqueModels.length > 0 ? (
+              uniqueModels.map((model, index) => {
                 return (
                   <FormControlLabel
-                    key={item.id}
+                    key={index}
                     sx={{ marginLeft: 0 }}
-                    control={<CheckboxButton key={item.id} />}
+                    control={
+                      <CheckboxButton
+                        key={index}
+                        checked={mainStore.selectedModels.includes(model)}
+                        onClick={() => handleModelClick(model)}
+                      />
+                    }
                     label={
                       <Text
                         sx={{ paddingLeft: "8px" }}
                         variant="body2"
-                        content={item.model}
+                        content={model}
                       />
                     }
                   />
@@ -62,4 +83,4 @@ const Models = () => {
     />
   );
 };
-export default Models;
+export default observer(Models);
