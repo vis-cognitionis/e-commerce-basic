@@ -1,16 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-export interface ProductCardProps {
-  brand: string;
-  createdAt: string;
-  description: string;
-  id: string;
-  image: string;
-  model: string;
-  name: string;
-  price: string;
-}
+import { ProductCardProps } from "./interface";
 
 const useGetProducts = () => {
   const { data, isLoading, isError, error } = useQuery<ProductCardProps[]>(

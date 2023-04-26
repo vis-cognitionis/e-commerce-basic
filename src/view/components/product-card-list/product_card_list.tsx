@@ -17,6 +17,7 @@ import LazyLoadingSkeleton from "core/components/lazy-loading/lazy_loading";
 import Text from "core/components/typography/typography";
 import { usePaginatedProducts } from "custom-hook/usePaginatedProducts";
 import { colors } from "core/contants/colors";
+import { useCart } from "contexts/cart_context";
 
 const ProductCardsContainer = styled(Box)<BoxProps>(() => ({
   display: "flex",
@@ -79,6 +80,7 @@ const ProductCardList = () => {
 
   const navigate = useNavigate();
   const { isLoading } = useGetProducts();
+  const { addToCart } = useCart();
 
   return isProductNotFound ? (
     <Text
@@ -110,6 +112,7 @@ const ProductCardList = () => {
                     }}
                     onClickButton={() => {
                       console.log(product.id);
+                      addToCart(product);
                     }}
                   />
                 );

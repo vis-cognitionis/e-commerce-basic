@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import DetailCard from "core/components/cards/detail_card";
-import useGetProducts, { ProductCardProps } from "service/useGetProducts";
+import useGetProducts from "service/useGetProducts";
+import { ProductCardProps } from "service/interface";
+import { useCart } from "contexts/cart_context";
 
 const Detail = () => {
   const [selectedProduct, setSelectedProduct] = useState<ProductCardProps>(
@@ -10,6 +12,8 @@ const Detail = () => {
   );
 
   const { products, isLoading } = useGetProducts();
+  const { addToCart } = useCart();
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -37,7 +41,7 @@ const Detail = () => {
       image={selectedProduct.image}
       price={selectedProduct.price}
       onClick={() => {
-        console.log(selectedProduct.id);
+        addToCart(selectedProduct);
       }}
     />
   );
