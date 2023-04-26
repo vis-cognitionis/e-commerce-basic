@@ -18,15 +18,15 @@ const Models = () => {
 
   const searchedModels = products
     ? products.filter((item) =>
-        item.brand.toLowerCase().includes(searchModel.toLowerCase())
+        item.model.toLowerCase().includes(searchModel.toLowerCase())
       )
     : [];
 
   return (
     <ContainerCard
-      title="Models"
+      title="Model"
       children={
-        <Stack spacing={1}>
+        <Stack spacing={0.8}>
           <SearchBox>
             <IconSearch sx={{ width: "16px", height: "auto" }} />
             <SearchInput

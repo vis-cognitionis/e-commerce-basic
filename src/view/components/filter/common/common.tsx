@@ -15,7 +15,7 @@ export const SearchContainer = styled(Stack)<StackProps>(() => ({
   maxHeight: "83px",
   overflowX: "hidden",
   overflowY: "scroll",
-  gap: "12px",
+  gap: "10px",
 
   "&::-webkit-scrollbar": {
     width: "4px",

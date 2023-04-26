@@ -26,7 +26,7 @@ const Brands = () => {
     <ContainerCard
       title="Brands"
       children={
-        <Stack spacing={1}>
+        <Stack spacing={0.8}>
           <SearchBox>
             <IconSearch sx={{ width: "16px", height: "auto" }} />
             <SearchInput
