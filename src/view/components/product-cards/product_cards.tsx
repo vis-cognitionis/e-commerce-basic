@@ -90,7 +90,15 @@ const ProductCards = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  let filteredProducts = products;
+  let filteredProducts = products?.filter((product) => {
+    const filters = mainStore.selectedFilters;
+    return (
+      filters.length === 0 ||
+      filters.some(
+        (filter) => product.brand === filter || product.model === filter
+      )
+    );
+  });
 
   switch (mainStore.selectedItem) {
     case "price-low-to-high":

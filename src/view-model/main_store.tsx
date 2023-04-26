@@ -2,8 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 class MainStore {
   selectedItem: string = "old-to-new";
-  selectedBrands: string[] = [];
-  selectedModels: string[] = [];
+  selectedFilters: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -13,12 +12,8 @@ class MainStore {
     this.selectedItem = item;
   };
 
-  setSelectedBrands(brands: string[]) {
-    this.selectedBrands = brands;
-  }
-
-  setSelectedModels(models: string[]) {
-    this.selectedModels = models;
+  setSelectedFilters(filters: string[]) {
+    this.selectedFilters = filters;
   }
 }
 

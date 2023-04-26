@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FormControlLabel, Stack } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import ContainerCard from "core/components/cards/container_card";
-import useGetProducts, { ProductCardProps } from "service/useGetProducts";
+import useGetProducts from "service/useGetProducts";
 import CheckboxButton from "core/components/buttons/checkbox_button";
 import Text from "core/components/typography/typography";
 import mainStore from "view-model/main_store";
@@ -11,6 +12,8 @@ import { IconSearch } from "core/components/icons/icons";
 import { SearchBox, SearchInput, SearchContainer } from "./common/common";
 
 const Brands = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { products } = useGetProducts();
   const [searchBrand, setSearchBrand] = useState<string>("");
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +27,17 @@ const Brands = () => {
     : [];
 
   const handleBrandClick = (brand: string) => {
-    if (mainStore.selectedBrands.includes(brand)) {
-      mainStore.setSelectedBrands(
-        mainStore.selectedBrands.filter((item) => item !== brand)
+    if (mainStore.selectedFilters.includes(brand)) {
+      mainStore.setSelectedFilters(
+        mainStore.selectedFilters.filter((item) => item !== brand)
       );
     } else {
-      mainStore.setSelectedBrands([...mainStore.selectedBrands, brand]);
+      mainStore.setSelectedFilters([...mainStore.selectedFilters, brand]);
     }
+
+    const newSearchParams = new URLSearchParams(location.search);
+    newSearchParams.set("page", "1");
+    navigate(`${location.pathname}?${newSearchParams.toString()}`);
   };
 
   // required to show the same brand names as unique in the user interface
@@ -59,7 +66,7 @@ const Brands = () => {
                     control={
                       <CheckboxButton
                         key={imdex}
-                        checked={mainStore.selectedBrands.includes(brand)}
+                        checked={mainStore.selectedFilters.includes(brand)}
                         onClick={() => handleBrandClick(brand)}
                       />
                     }

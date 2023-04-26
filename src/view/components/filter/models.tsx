@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormControlLabel, Stack } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import { observer } from "mobx-react";
 
 import ContainerCard from "core/components/cards/container_card";
@@ -11,6 +12,8 @@ import { SearchBox, SearchContainer, SearchInput } from "./common/common";
 import { IconSearch } from "core/components/icons/icons";
 
 const Models = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { products } = useGetProducts();
   const [searchModel, setSearchModel] = useState<string>("");
 
@@ -28,13 +31,16 @@ const Models = () => {
   const uniqueModels = [...new Set(searchedModels.map((item) => item.model))];
 
   const handleModelClick = (model: string) => {
-    if (mainStore.selectedModels.includes(model)) {
-      mainStore.setSelectedModels(
-        mainStore.selectedModels.filter((item) => item !== model)
+    if (mainStore.selectedFilters.includes(model)) {
+      mainStore.setSelectedFilters(
+        mainStore.selectedFilters.filter((item) => item !== model)
       );
     } else {
-      mainStore.setSelectedModels([...mainStore.selectedModels, model]);
+      mainStore.setSelectedFilters([...mainStore.selectedFilters, model]);
     }
+    const newSearchParams = new URLSearchParams(location.search);
+    newSearchParams.set("page", "1");
+    navigate(`${location.pathname}?${newSearchParams.toString()}`);
   };
 
   return (
@@ -60,7 +66,7 @@ const Models = () => {
                     control={
                       <CheckboxButton
                         key={index}
-                        checked={mainStore.selectedModels.includes(model)}
+                        checked={mainStore.selectedFilters.includes(model)}
                         onClick={() => handleModelClick(model)}
                       />
                     }
