@@ -3,7 +3,7 @@ export const colors = {
   textDark: "#000000",
   textLight: "#FFFFFF",
   background: "#FFFFFF",
-  lightGray: "#F9F9F9",
+  lightGray: "#F0F0F0",
   gray: "#888888",
   warning: "#A0630D",
 };
