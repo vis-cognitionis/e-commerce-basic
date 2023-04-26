@@ -108,10 +108,8 @@ const ProductCardList = () => {
                     image={product.image}
                     onClickCard={() => {
                       navigate(`/detail/${product.id}`);
-                      console.log(product.createdAt);
                     }}
                     onClickButton={() => {
-                      console.log(product.id);
                       addToCart(product);
                     }}
                   />

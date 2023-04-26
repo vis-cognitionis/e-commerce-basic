@@ -7,4 +7,5 @@ export interface ProductCardProps {
   model: string;
   name: string;
   price: string;
+  quantity: number;
 }

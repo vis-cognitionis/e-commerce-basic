@@ -15,11 +15,9 @@ import { colors } from "core/contants/colors";
 import { useCart } from "contexts/cart_context";
 
 const CartContainer = styled(Stack)<StackProps>(() => ({
-  maxHeight: "120px",
+  maxHeight: "830px",
+  height: "auto",
   overflowY: "auto",
-  "&::-webkit-scrollbar": {
-    display: "none",
-  },
 }));
 
 const CountButton = styled(Button)<ButtonProps>(() => ({
@@ -53,73 +51,48 @@ const Cart = () => {
       isFilter={false}
       children={
         <CartContainer spacing={1.8} pb={1.5}>
-          {cart.map((item) => (
-            <Stack
-              key={item.id}
-              direction="row"
-              spacing={2}
-              alignItems={"center"}
-              width={"193px"}
-            >
-              <Stack width={"106px"}>
-                <Text variant="caption" content={item.brand} />
-                <Text
-                  content={`${item.price + " ₺"}`}
-                  sx={{
-                    color: colors.primary,
-                    mt: "-4px",
-                    fontSize: 10,
-                    fontWeight: 500,
-                  }}
-                />
-              </Stack>
+          {cart.map((item) => {
+            console.log(item.quantity);
+            return (
               <Stack
+                key={item.id}
                 direction="row"
-                width={"78px"}
-                height={"27px"}
+                spacing={2}
                 alignItems={"center"}
+                width={"193px"}
               >
-                <CountButton>-</CountButton>
-                <QuantityBox>
-                  <Text content="2" sx={{ color: colors.textLight }} />
-                </QuantityBox>
-                <CountButton>+</CountButton>
+                <Stack width={"106px"}>
+                  <Text variant="caption" content={item.brand} />
+                  <Text
+                    content={`${item.price + " ₺"}`}
+                    sx={{
+                      color: colors.primary,
+                      mt: "-4px",
+                      fontSize: 10,
+                      fontWeight: 500,
+                    }}
+                  />
+                </Stack>
+                <Stack
+                  direction="row"
+                  width={"78px"}
+                  height={"27px"}
+                  alignItems={"center"}
+                >
+                  <CountButton onClick={() => removeFromCart(Number(item.id))}>
+                    -
+                  </CountButton>
+                  <QuantityBox>
+                    <Text
+                      content={item.quantity.toString()}
+                      sx={{ color: colors.textLight }}
+                    />
+                  </QuantityBox>
+                  <CountButton onClick={() => addToCart(item)}>+</CountButton>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
-          {/* {Array(10).fill(
-            <Stack
-              direction="row"
-              spacing={2}
-              alignItems={"center"}
-              width={"193px"}
-            >
-              <Stack width={"106px"}>
-                <Text variant="caption" content="Samsung S22" />
-                <Text
-                  content="12.000 ₺"
-                  sx={{
-                    color: colors.primary,
-                    mt: "-4px",
-                    fontSize: 10,
-                    fontWeight: 500,
-                  }}
-                />
-              </Stack>
-              <Stack
-                direction="row"
-                width={"78px"}
-                height={"27px"}
-                alignItems={"center"}
-              >
-                <CountButton>-</CountButton>
-                <QuantityBox>
-                  <Text content="2" sx={{ color: colors.textLight }} />
-                </QuantityBox>
-                <CountButton>+</CountButton>
-              </Stack>
-            </Stack>
-          )} */}
+            );
+          })}
         </CartContainer>
       }
     />
