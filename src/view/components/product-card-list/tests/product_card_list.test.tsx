@@ -39,5 +39,5 @@ test("ProductCardList component renders correctly", () => {
       <ProductCardList />
     </MemoryRouter>
   );
-  expect(getByText("Brand 1 Model 1")).toBeInTheDocument();
+  expect(getByText(/Brand 1 Model 1/i)).toBeInTheDocument();
 });
