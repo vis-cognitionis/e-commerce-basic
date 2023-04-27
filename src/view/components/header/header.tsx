@@ -44,13 +44,14 @@ const HeaderInfo = styled(Stack)<StackProps>(() => ({
   alignItems: "center",
 }));
 
-export const SearchBox = styled(Box)<BoxProps>(() => ({
+export const SearchBox = styled(Box)<BoxProps>(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   backgroundColor: colors.lightGray,
   padding: "8px 8px 8px 12px",
   gap: "10px",
-  width: "408px",
+  minWidth: "130px",
+  width: "100%",
   height: "40px",
   boxSizing: "border-box",
 }));
@@ -67,6 +68,7 @@ const HeaderSearch = styled(Stack)<StackProps>(() => ({
   display: "flex",
   flexDirection: "row",
   gap: "129px",
+  width: "70%",
   justifyContent: "space-between",
 }));
 
@@ -107,6 +109,7 @@ const Header = () => {
           <Text
             content={`${totalPrice.toLocaleString() + " ₺"}`}
             sx={{ color: colors.textLight }}
+            noWrap
           />
         </HeaderInfo>
         <HeaderInfo>
