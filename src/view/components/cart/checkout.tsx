@@ -8,9 +8,9 @@ import { colors } from "core/contants/colors";
 import { useCart } from "contexts/cart_context";
 
 const Checkout = () => {
-  const { cart, totalPrice } = useCart();
+  const { totalPrice } = useCart();
 
-  return cart.length > 0 ? (
+  return (
     <ContainerCard
       sx={{
         width: "213px",
@@ -42,6 +42,6 @@ const Checkout = () => {
         </Stack>
       }
     />
-  ) : null;
+  );
 };
 export default Checkout;
