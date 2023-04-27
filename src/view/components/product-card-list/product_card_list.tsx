@@ -45,7 +45,8 @@ const PaginationContainer = styled(Box)<BoxProps>(({ theme }) => ({
   display: "flex",
   justifySelf: "center",
   alignSelf: "center",
-  bottom: 0,
+  bottom: -60,
+  left: "30%",
   marginTop: 120,
   [theme.breakpoints.down(1565)]: {
     bottom: -100,
@@ -115,18 +116,18 @@ const ProductCardList = () => {
                   />
                 );
               })}
-        </ProductCardsContainer>
 
-        {!isLoading && pageCount > 1 && (
-          <PaginationContainer>
-            <CustomPagination
-              count={pageCount}
-              page={currentPage}
-              onChange={handleChangePage}
-              shape="rounded"
-            />
-          </PaginationContainer>
-        )}
+          {!isLoading && pageCount > 1 && (
+            <PaginationContainer>
+              <CustomPagination
+                count={pageCount}
+                page={currentPage}
+                onChange={handleChangePage}
+                shape="rounded"
+              />
+            </PaginationContainer>
+          )}
+        </ProductCardsContainer>
       </ScrollContainer>
     </Box>
   );
