@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import DetailCard from "core/components/cards/detail_card";
 import useGetProducts from "service/useGetProducts";
@@ -15,16 +15,23 @@ const Detail = () => {
   const { addToCart } = useCart();
 
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const fetchedProduct =
-        products && products.find((product) => product.id === id);
-      fetchedProduct && setSelectedProduct(fetchedProduct);
-    };
+    const id = location.pathname.split("/").pop();
 
-    fetchProduct();
-  }, [products, id, setSelectedProduct]);
+    if (id && /^\d+$/.test(id)) {
+      const fetchProduct = async () => {
+        const fetchedProduct =
+          products && products.find((product) => product.id === id);
+        fetchedProduct && setSelectedProduct(fetchedProduct);
+      };
+      fetchProduct();
+    } else {
+      navigate("/404");
+    }
+  }, [location, products, setSelectedProduct, navigate]);
 
   return (
     <DetailCard

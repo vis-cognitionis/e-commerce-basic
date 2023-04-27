@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { CircularProgress } from "@mui/material";
 
 import Root from "view/routes/root";
-import Home from "view/routes/home";
-import Detail from "view/routes/detail";
 import CartProvider from "contexts/cart_context";
 import NotFound from "view/routes/not_found";
 import { queryClient } from "service/query_client";
+
+const Home = lazy(() => import("view/routes/home"));
+const Detail = lazy(() => import("view/routes/detail"));
 
 const router = createBrowserRouter([
   {
@@ -17,11 +19,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <Suspense fallback={<CircularProgress />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "detail/:id",
-        element: <Detail />,
+        element: (
+          <Suspense fallback={<CircularProgress />}>
+            <Detail />
+          </Suspense>
+        ),
       },
     ],
   },
