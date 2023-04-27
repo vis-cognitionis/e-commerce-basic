@@ -20,7 +20,7 @@ On the homepage, users can filter and sort products or search among products usi
 <li> <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> </li> 
 <li> <a href="https://tanstack.com/query/latest" target="_blank">TanStack React Query</a> </li> 
 <li> <a href="https://mobx.js.org/" target="_blank">MobX</a> </li>
-<li> <a href=https://reactrouter.com/en/main/" target="_blank">React Router v6</a> </li>
+<li> <a href="https://reactrouter.com/en/main/" target="_blank">React Router v6</a> </li>
 <li> <a href="https://mui.com/" target="_blank">Material UI</a> </li>
 <li> <a href="https://react.dev/reference/react/createContext" target="_blank">React Context API</a> </li>
 <li> <a href="https://react.dev/learn/reusing-logic-with-custom-hooks" target="_blank">React Custom Hooks</a> </li>
