@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { ProductCardProps } from "service/interface";
 import useGetProducts from "service/useGetProducts";
 import mainStore from "view-model/main_store";
 
@@ -27,40 +28,50 @@ export const usePaginatedProducts = () => {
     navigate(`/?page=${page}`);
   };
 
-  //All products from the data are firstly filtered here
-  //These filter parameters are the product brand, model and search for the product name by search component
+  //all products from the data are firstly filtered here
+  //these filter parameters are the product brand, model and search for the product name by search component
   //filters.length === 0 is required to display all products if no filters are selected
-  let filteredProductList = products?.filter((product) => {
-    const filters = mainStore.selectedFilters;
-    const searchName = mainStore.searchName.toLowerCase();
-    return (
-      (filters.length === 0 ||
-        filters.some(
-          (filter) => product.brand === filter || product.model === filter
-        )) &&
-      (searchName === "" || product.name.toLowerCase().includes(searchName))
-    );
-  });
+  const getFilteredProducts = (products: ProductCardProps[]) => {
+    return products.filter((product) => {
+      const filters = mainStore.selectedFilters;
+      const searchName = mainStore.searchName.toLowerCase();
+      return (
+        (filters.length === 0 ||
+          filters.some(
+            (filter) => product.brand === filter || product.model === filter
+          )) &&
+        (searchName === "" || product.name.toLowerCase().includes(searchName))
+      );
+    });
+  };
+
+  //required to provide results when searching on different pages
+  useEffect(() => {
+    products && getFilteredProducts(products);
+    setCurrentPage(1);
+  }, [mainStore.searchName, mainStore.selectedFilters, products]);
+
+  let filteredProductList = getFilteredProducts(products || []);
 
   //required to sort products according to the values of sort by component
   switch (mainStore.selectedItem) {
     case "price-low-to-high":
-      filteredProductList = filteredProductList?.sort(
+      filteredProductList = filteredProductList.sort(
         (a, b) => Number(a.price) - Number(b.price)
       );
       break;
     case "price-high-to-low":
-      filteredProductList = filteredProductList?.sort(
+      filteredProductList = filteredProductList.sort(
         (a, b) => Number(b.price) - Number(a.price)
       );
       break;
     case "new-to-old":
-      filteredProductList = filteredProductList?.sort((a, b) =>
+      filteredProductList = filteredProductList.sort((a, b) =>
         a.createdAt < b.createdAt ? 1 : -1
       );
       break;
     case "old-to-new":
-      filteredProductList = filteredProductList?.sort((a, b) =>
+      filteredProductList = filteredProductList.sort((a, b) =>
         a.createdAt > b.createdAt ? 1 : -1
       );
       break;
@@ -72,12 +83,10 @@ export const usePaginatedProducts = () => {
   const endIndex = startIndex + itemsPerPage;
 
   //get the products that should be displayed on the current page
-  const paginatedProductList = filteredProductList?.slice(startIndex, endIndex);
+  const paginatedProductList = filteredProductList.slice(startIndex, endIndex);
 
   //calculate the total number of pages based on the number of products and items per page
-  const pageCount = Math.ceil(
-    ((filteredProductList && filteredProductList.length) || 0) / itemsPerPage
-  );
+  const pageCount = Math.ceil((filteredProductList.length || 0) / itemsPerPage);
 
   //required to update pagination by URL when doing back and forward in browser
   useEffect(() => {
@@ -86,8 +95,7 @@ export const usePaginatedProducts = () => {
     }
   }, [location.search, pageCount, page]);
 
-  const isProductNotFound =
-    paginatedProductList && paginatedProductList.length === 0;
+  const isProductNotFound = paginatedProductList.length === 0;
 
   return {
     paginatedProductList,
