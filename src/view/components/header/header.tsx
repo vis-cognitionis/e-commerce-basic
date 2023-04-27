@@ -17,7 +17,7 @@ import { useCart } from "contexts/cart_context";
 import mainStore from "view-model/main_store";
 import Text from "core/components/typography/typography";
 
-const HeaderContainer = styled("header")(() => ({
+const HeaderContainer = styled("header")(({ theme }) => ({
   width: "100%",
   height: "50px",
   display: "flex",
@@ -28,6 +28,10 @@ const HeaderContainer = styled("header")(() => ({
   paddingRight: "147px",
   boxSizing: "border-box",
   background: colors.primary,
+  [theme.breakpoints.down(1180)]: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
+  },
 }));
 
 const HeaderInfoContainer = styled(Stack)<StackProps>(() => ({
@@ -50,10 +54,11 @@ export const SearchBox = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: colors.lightGray,
   padding: "8px 8px 8px 12px",
   gap: "10px",
-  minWidth: "130px",
+  minWidth: "100px",
   width: "100%",
   height: "40px",
   boxSizing: "border-box",
+  marginRight: "10px",
 }));
 
 export const SearchInput = styled(InputBase)<InputBaseProps>(() => ({
@@ -64,12 +69,15 @@ export const SearchInput = styled(InputBase)<InputBaseProps>(() => ({
   fontFamily: "Montserrat",
 }));
 
-const HeaderSearch = styled(Stack)<StackProps>(() => ({
+const HeaderSearch = styled(Stack)<StackProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: "129px",
   width: "70%",
-  justifyContent: "space-between",
+  alignItems: "center",
+  [theme.breakpoints.down(1180)]: {
+    gap: "29px",
+  },
 }));
 
 const Header = () => {

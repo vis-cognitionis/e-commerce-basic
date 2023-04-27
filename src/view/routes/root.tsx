@@ -1,17 +1,29 @@
-import { Stack } from "@mui/material";
+import React from "react";
 import { Outlet } from "react-router-dom";
+import { Stack, styled, StackProps } from "@mui/material";
 
 import CartArea from "view/components/cart/_index";
 import Header from "view/components/header/header";
+
+const OutletContainer = styled(Stack)<StackProps>(({ theme }) => ({
+  paddingLeft: "147px",
+  paddingTop: "83px",
+  [theme.breakpoints.down(1180)]: {
+    paddingLeft: "40px",
+  },
+  [theme.breakpoints.down(950)]: {
+    width: "70%",
+  },
+}));
 
 export default function Root() {
   return (
     <>
       <Header />
       <Stack direction="row" justifyContent={"space-between"}>
-        <Stack direction="row" pt={"83px"} pl={"147px"}>
+        <OutletContainer direction="row">
           <Outlet />
-        </Stack>
+        </OutletContainer>
         <CartArea />
       </Stack>
     </>

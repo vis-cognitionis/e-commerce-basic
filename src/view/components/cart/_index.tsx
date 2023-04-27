@@ -1,15 +1,23 @@
 import React from "react";
-import { Stack } from "@mui/material";
+import { Stack, styled, StackProps } from "@mui/material";
 
 import Cart from "./cart";
 import Checkout from "./checkout";
 
+const Container = styled(Stack)<StackProps>(({ theme }) => ({
+  paddingRight: "147px",
+  paddingTop: "83px",
+  [theme.breakpoints.down(1180)]: {
+    paddingRight: "40px",
+  },
+}));
+
 const CartArea = () => {
   return (
-    <Stack gap={4} pr={"147px"} pt={"83px"}>
+    <Container gap={4}>
       <Cart />
       <Checkout />
-    </Stack>
+    </Container>
   );
 };
 export default CartArea;

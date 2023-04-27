@@ -13,55 +13,85 @@ import FilledButton from "../buttons/filled_button";
 import LazyLoadingSkeleton from "../lazy-loading/lazy_loading";
 import { colors } from "core/contants/colors";
 
-const DetailCardContainer = styled(Box)<BoxProps>(() => ({
+const DetailCardContainer = styled(Box)<BoxProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "flex-start",
   padding: "10px",
-  gap: "10px",
+  gap: "24px",
   position: "relative",
-  width: "1061px",
-  height: "457px",
+  width: "auto",
+  height: "auto",
   background: colors.background,
   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   boxSizing: "border-box",
+  [theme.breakpoints.down(1590)]: {
+    flexDirection: "column",
+    alignItems: "center",
+    justiyContent: "center",
+  },
+  [theme.breakpoints.down(950)]: {
+    width: "80%",
+    height: "auto",
+  },
 }));
 
-const DetailImage = styled("img")(() => ({
+const DetailImage = styled("img")(({ theme }) => ({
   width: "549px",
   height: "422px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+  [theme.breakpoints.down(950)]: {
+    width: "80%",
+    height: "auto",
+  },
 }));
 
-const DetailImageContainer = styled(Box)<BoxProps>(() => ({
+const DetailImageContainer = styled(Box)<BoxProps>(({ theme }) => ({
   width: "549px",
   height: "422px",
   position: "relative",
+  [theme.breakpoints.down(950)]: {
+    width: "80%",
+    height: "auto",
+  },
 }));
 
-const InfoContainer = styled(Stack)<StackProps>(() => ({
+const InfoContainer = styled(Stack)<StackProps>(({ theme }) => ({
   padding: "10px",
+  paddingRight: "20px",
   gap: "19px",
   width: "482px",
   height: "447px",
   boxSizing: "border-box",
+  [theme.breakpoints.down(950)]: {
+    width: "90%",
+    height: "auto",
+  },
 }));
 
-const DescContainer = styled(Stack)<StackProps>(() => ({
+const DescContainer = styled(Stack)<StackProps>(({ theme }) => ({
   overflowY: "auto",
   "&::-webkit-scrollbar": {
     display: "none",
   },
   height: "242px",
+  [theme.breakpoints.down(950)]: {
+    width: "90%",
+    height: "auto",
+  },
 }));
 
-const Infos = styled(Stack)<StackProps>(() => ({
+const Infos = styled(Stack)<StackProps>(({ theme }) => ({
   padding: "0px",
   gap: "10px",
   width: "442px",
   minHeight: "99px",
+  [theme.breakpoints.down(950)]: {
+    width: "90%",
+    height: "auto",
+  },
 }));
 
 const DetailCardImage = ({ src }: { src: string }) => {
