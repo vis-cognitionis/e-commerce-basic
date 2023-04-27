@@ -47,6 +47,7 @@ const PaginationContainer = styled(Box)<BoxProps>(({ theme }) => ({
   alignSelf: "center",
   bottom: -60,
   left: "30%",
+  minWidth: "500px",
   marginTop: 120,
   [theme.breakpoints.down(1565)]: {
     bottom: -100,

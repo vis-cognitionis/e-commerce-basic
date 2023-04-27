@@ -10,7 +10,7 @@ import mainStore from "view-model/main_store";
 const items = [
   { name: "Old to new", label: "old-to-new" },
   { name: "New to old", label: "new-to-old" },
-  { name: "Price hight to low", label: "price-high-to-low" },
+  { name: "Price high to low", label: "price-high-to-low" },
   { name: "Price low to high", label: "price-low-to-high" },
 ];
 
