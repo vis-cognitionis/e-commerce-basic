@@ -1,4 +1,4 @@
-# Eteration
+# E-commerce-basic
 
 It is a basic website where details can be seen along with filtering, sorting, searching and adding to cart features.
 
@@ -6,7 +6,7 @@ It is a basic website where details can be seen along with filtering, sorting, s
 
 To install and run the app on your local machine, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/vis-cognitionis/eteration-case`
+1. Clone the repository: `git clone https://github.com/vis-cognitionis/e-commerce-basic`
 2. Install dependencies: `npm install`
 3. To run the tests: `npm run test` This will run the tests and display the results in the console.
 

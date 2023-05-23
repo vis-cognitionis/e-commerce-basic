@@ -8,16 +8,16 @@ test("Header component renders correctly", () => {
       <Header />
     </MemoryRouter>
   );
-  expect(getByText("Eteration")).toBeInTheDocument();
+  expect(getByText("ShopNest")).toBeInTheDocument();
 });
 
-test("Clicking on 'Eteration' redirects to homepage", () => {
+test("Clicking on 'ShopNest' redirects to homepage", () => {
   const { getByText } = render(
     <MemoryRouter>
       <Header />
     </MemoryRouter>
   );
-  const eteLink = getByText("Eteration");
+  const eteLink = getByText("ShopNest");
   fireEvent.click(eteLink);
   expect(window.location.pathname).toEqual("/");
 });

@@ -92,7 +92,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderSearch>
         <Text
-          content="Eteration"
+          content="ShopNest"
           sx={{
             color: colors.textLight,
             lineHeight: 1.5,
